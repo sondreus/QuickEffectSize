@@ -17,6 +17,8 @@ library(ggplot2)
 
 QuickEffectSize is an easy interface for effect size plots in R. Using the Zelig package and ggplot2, it simulates and visualizes effect sizes for any zelig model.
 
+By default the plot shows 100 simulations for 100 values of the selected independent variable, which varies from one standard deviation above to one standard deviation below its mean.
+
 Written by Sondre U. Solstad, Princeton University (ssolstad@princeton.edu). Send me an email if you find this package useful or want to suggest an improvement or feature.
 
 Installation instructions:
@@ -33,7 +35,7 @@ library(Zelig)
 
 dat <- data.frame(y = rnorm(100), x1 = rnorm(100), x2 = rnorm(100))
 dat$x3 <- dat$y + rnorm(100)
-qes(zelig(y ~ x1 + x2 + x3, data = dat, model = "normal"), iv.var = "x3", xlab = "Using qes", ylab = "Productivity")
+qes(zelig(y ~ x1 + x2 + x3, data = dat, model = "normal"), iv.var = "x3", xlab = "Using qes", ylab = "Productivity", progress = FALSE)
 ```
 
 ## Arguments: 
@@ -43,5 +45,6 @@ qes(zelig(y ~ x1 + x2 + x3, data = dat, model = "normal"), iv.var = "x3", xlab =
 * **range.n** - Number of different values of iv.var to simulate. Defaults to 100. 
 * **custom.range** - Vector of two values specifying a range within which different values of iv.var should be simulated. (Optional)
 * **return.pdata** - Should the data to construct the plot be returned instead of the plot itself? Defaults to FALSE.
+* **progress** - Should the data to construct the plot be returned instead of the plot itself? Defaults to FALSE. Should progress be reported? (defaults to TRUE)
 * **coord.ylim** - Sets limits on what part of the x.axis to display through ggplots coord_cartesian() function. (Optional)
 * **set.covar** - Option to specify values of other predictors in simulations. (Optional) 

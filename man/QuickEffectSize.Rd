@@ -6,8 +6,8 @@
 \title{QuickEffectSize (qes)}
 \usage{
 QuickEffectSize(zelig.model, iv.var, sim.n = 100, range.n = 100,
-  custom.range, return.pdata = FALSE, xlab = "IV", ylab = "DV",
-  coord.ylim, set.covar = NULL, ...)
+  custom.range, return.pdata = FALSE, progress = TRUE, xlab = "IV",
+  ylab = "DV", coord.ylim, set.covar = NULL, ...)
 }
 \arguments{
 \item{zelig.model}{Fitted zelig model}
@@ -21,6 +21,8 @@ QuickEffectSize(zelig.model, iv.var, sim.n = 100, range.n = 100,
 \item{custom.range}{Vector of two values specifying a range within which different values of iv.var should be simulated. (Optional)}
 
 \item{return.pdata}{Should the data to construct the plot be returned instead of the plot itself? Defaults to FALSE.}
+
+\item{progress}{Should progress be reported? (defaults to TRUE)}
 
 \item{coord.ylim}{Sets limits on what part of the x.axis to display through ggplots coord_cartesian() function. (Optional)}
 

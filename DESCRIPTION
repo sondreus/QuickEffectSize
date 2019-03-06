@@ -1,10 +1,10 @@
 Package: QuickEffectSize
-Title: What the Package Does (one line, title case)
+Title: Quick Effect Size Plots in R
 Version: 0.0.0.9000
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Authors@R: person("Sondre", "Solstad", email = ssolstad@princeton.edu", role = c("aut", "cre"))
+Description: QuickEffectSize is an easy interface for effect size plots in R. Using the Zelig package and ggplot2, it simulates and visualizes effect sizes for any zelig model.
 Depends: R (>= 3.4.1)
-License: What license is it under?
+License: NA
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1

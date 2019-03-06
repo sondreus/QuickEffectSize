@@ -7,6 +7,7 @@
 #' @param range.n Number of different values of iv.var to simulate. Defaults to 100. 
 #' @param custom.range Vector of two values specifying a range within which different values of iv.var should be simulated. (Optional)
 #' @param return.pdata Should the data to construct the plot be returned instead of the plot itself? Defaults to FALSE.
+#' @param progress Should progress be reported? (defaults to TRUE)  
 #' @param coord.ylim Sets limits on what part of the x.axis to display through ggplots coord_cartesian() function. (Optional)
 #' @param set.covar Option to specify values of other predictors in simulations. (Optional) 
 #' @keywords qes QuickEffectSize effect Zelig plot
@@ -19,7 +20,7 @@
 #' qes(zelig(y ~ x1 + x2 + x3, data = dat, model = "normal"), iv.var = "x3", xlab = "Using qes", ylab = "Productivity")
 
 
-QuickEffectSize <- qes <- function(zelig.model, iv.var, sim.n = 100, range.n = 100, custom.range, return.pdata = FALSE, xlab = "IV", ylab = "DV", coord.ylim, set.covar = NULL, ...){
+QuickEffectSize <- qes <- function(zelig.model, iv.var, sim.n = 100, range.n = 100, custom.range, return.pdata = FALSE, progress = TRUE, xlab = "IV", ylab = "DV", coord.ylim, set.covar = NULL, ...){
 
   library(Zelig)
   library(ggplot2)
@@ -84,7 +85,9 @@ for(i in 1:length(range)){
   pdata[, i] <- unlist(sim$get_qi(qi = "ev", xvalue = "x"))
   
   index <- index + 1
+  if(progress){
   cat(paste("\r", ifelse(index == length(range), paste(100, "%  -  complete !"), paste(sprintf("%.2f", round(index/length(range), 4)*100), "%")), " -  Package: QuickEffectSize  -  IV:", iv.var))
+  }
   
 }
 
