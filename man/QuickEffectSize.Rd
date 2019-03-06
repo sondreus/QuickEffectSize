@@ -2,6 +2,7 @@
 % Please edit documentation in R/QuickEffectSize.R
 \name{QuickEffectSize}
 \alias{QuickEffectSize}
+\alias{qes}
 \title{QuickEffectSize (qes)}
 \usage{
 QuickEffectSize(zelig.model, iv.var, sim.n = 100, range.n = 100,
@@ -29,6 +30,13 @@ QuickEffectSize(zelig.model, iv.var, sim.n = 100, range.n = 100,
 This package visualizes effect sizes. It relies on the Zelig package.
 }
 \examples{
-cat_function()
+dat <- data.frame(y = rnorm(100), x1 = rnorm(100), x2 = rnorm(100))
+dat$x3 <- dat$y + rnorm(100)
+library(Zelig)
+qes(zelig(y ~ x1 + x2 + x3, data = dat, model = "normal"), iv.var = "x3", xlab = "Using qes", ylab = "Productivity")
 }
-\keyword{cats}
+\keyword{QuickEffectSize}
+\keyword{Zelig}
+\keyword{effect}
+\keyword{plot}
+\keyword{qes}
