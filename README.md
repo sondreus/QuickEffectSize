@@ -27,7 +27,8 @@ library(Zelig)
 
 dat <- data.frame(y = rnorm(100), x1 = rnorm(100), x2 = rnorm(100))
 dat$x3 <- dat$y + rnorm(100)
-qes(zelig(y ~ x1 + x2 + x3, data = dat, model = "normal"), iv.var = "x3", xlab = "Using qes", ylab = "Productivity", progress = FALSE)
+qes(zelig(y ~ x1 + x2 + x3, data = dat, model = "normal"), 
+    iv.var = "x3", xlab = "Using qes", ylab = "Productivity", progress = FALSE)
 ```
 
 How to cite this model in Zelig: R Core Team. 2008. normal: Normal Regression for Continuous Dependent Variables in Christine Choirat, Christopher Gandrud, James Honaker, Kosuke Imai, Gary King, and Olivia Lau, "Zelig: Everyone's Statistical Software," <http://zeligproject.org/>

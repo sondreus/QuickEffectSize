@@ -35,7 +35,8 @@ library(Zelig)
 
 dat <- data.frame(y = rnorm(100), x1 = rnorm(100), x2 = rnorm(100))
 dat$x3 <- dat$y + rnorm(100)
-qes(zelig(y ~ x1 + x2 + x3, data = dat, model = "normal"), iv.var = "x3", xlab = "Using qes", ylab = "Productivity", progress = FALSE)
+qes(zelig(y ~ x1 + x2 + x3, data = dat, model = "normal"), 
+    iv.var = "x3", xlab = "Using qes", ylab = "Productivity", progress = FALSE)
 ```
 
 ## Arguments: 
