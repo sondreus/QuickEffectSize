@@ -1,4 +1,4 @@
-QuickCoefPlot
+QuickEffectSize
 ================
 Sondre U. Solstad
 

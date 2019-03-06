@@ -1,5 +1,5 @@
 ---
-title: "QuickCoefPlot"
+title: "QuickEffectSize"
 author: "Sondre U. Solstad"
 output: github_document
 fig.caption: yes
