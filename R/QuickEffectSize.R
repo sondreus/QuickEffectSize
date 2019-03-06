@@ -1,6 +1,6 @@
 #' QuickEffectSize (qes)
 #'
-#' This package visualizes effect sizes. It relies on the Zelig package
+#' This package visualizes effect sizes. It relies on the Zelig package.
 #' @param zelig.model Fitted zelig model
 #' @param iv.var Independent variable. 
 #' @param sim.n Number of simulations for each value of iv.var simulated. Defaults to 100. 
@@ -16,7 +16,7 @@
 #' dat <- data.frame(y = rnorm(100), x1 = rnorm(100), x2 = rnorm(100))
 #' dat$x3 <- dat$y + rnorm(100)
 #' library(Zelig)
-#' qes(zelig(y ~ x1 + x2 + x3, data = dat, model = "normal"), iv.var = "x3", ylab = "Using qes", xlab = "Productivity")
+#' qes(zelig(y ~ x1 + x2 + x3, data = dat, model = "normal"), iv.var = "x3", xlab = "Using qes", ylab = "Productivity")
 
 
 QuickEffectSize <- qes <- function(zelig.model, iv.var, sim.n = 100, range.n = 100, custom.range, return.pdata = FALSE, xlab = "IV", ylab = "DV", coord.ylim, set.covar = NULL, ...){
