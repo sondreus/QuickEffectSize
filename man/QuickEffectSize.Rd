@@ -26,7 +26,7 @@ QuickEffectSize(zelig.model, iv.var, sim.n = 100, range.n = 100,
 \item{set.covar}{Option to specify values of other predictors in simulations. (Optional)}
 }
 \description{
-This package visualizes effect sizes. It relies on the Zelig package
+This package visualizes effect sizes. It relies on the Zelig package.
 }
 \examples{
 cat_function()
