@@ -15,7 +15,7 @@ library(lmtest)
 library(ggplot2)
 ```
 
-QuickEffectSize is an easy interface for effect size plots in R. Using the Zelig package and ggplot2, it simulates and visualizes effect sizes for any zelig model.
+QuickEffectSize is an easy interface for effect size plots in R. Using the Zelig package and ggplot2, it simulates and visualizes effect sizes of any zelig model.
 
 By default the plot shows 100 simulations for 100 values of the selected independent variable. These values are set to range from one standard deviation above to one standard deviation below the mean.
 
