@@ -11,9 +11,12 @@
 #' @param set.covar Option to specify values of other predictors in simulations. (Optional) 
 #' @keywords qes QuickEffectSize effect Zelig plot
 #' @aliases qes
-#' @export
+#' @export qes QuickEffectSize
 #' @examples
-#' cat_function()
+#' dat <- data.frame(y = rnorm(100), x1 = rnorm(100), x2 = rnorm(100))
+#' dat$x3 <- dat$y + rnorm(100)
+#' library(Zelig)
+#' qes(zelig(y ~ x1 + x2 + x3, data = dat, model = "normal"), iv.var = "x3", ylab = "Using qes", xlab = "Productivity")
 
 
 QuickEffectSize <- qes <- function(zelig.model, iv.var, sim.n = 100, range.n = 100, custom.range, return.pdata = FALSE, xlab = "IV", ylab = "DV", coord.ylim, set.covar = NULL, ...){
@@ -98,7 +101,7 @@ if(max(pdata$my.iv, na.rm = TRUE) > 1){
 
 p <- ggplot(pdata, aes(x=my.iv, y=ev))+geom_point(alpha = max(1/sim.n, 0.05), col = "skyblue")+theme_classic()+stat_smooth(col = "skyblue")+xlab(xlab)+ylab(ylab)
 
-if(!missing(ylim)){
+if(!missing(coord.ylim)){
   p <- p+coord_cartesian(ylim = coord.ylim)
 }
 
