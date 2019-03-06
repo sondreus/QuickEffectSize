@@ -9,7 +9,8 @@
 #' @param return.pdata Should the data to construct the plot be returned instead of the plot itself? Defaults to FALSE.
 #' @param coord.ylim Sets limits on what part of the x.axis to display through ggplots coord_cartesian() function. (Optional)
 #' @param set.covar Option to specify values of other predictors in simulations. (Optional) 
-#' @keywords cats
+#' @keywords qes QuickEffectSize effect Zelig plot
+#' @aliases qes
 #' @export
 #' @examples
 #' cat_function()
