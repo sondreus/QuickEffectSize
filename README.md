@@ -23,13 +23,6 @@ Example 1:
 
 ``` r
 library(Zelig)
-```
-
-    ## Warning: package 'Zelig' was built under R version 3.4.4
-
-    ## Warning: package 'survival' was built under R version 3.4.4
-
-``` r
 library(QuickEffectSize)
 
 dat <- data.frame(y = rnorm(100), x1 = rnorm(100), x2 = rnorm(100))

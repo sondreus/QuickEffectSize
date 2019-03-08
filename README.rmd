@@ -30,7 +30,7 @@ install_github("sondreus/QuickEffectSize")
 
 ## Example 1: 
 
-```{r, message=FALSE, echo=TRUE, results='hide',fig.keep='all'}
+```{r, message=FALSE, warning=FALSE, echo=TRUE, results='hide',fig.keep='all'}
 library(Zelig)
 library(QuickEffectSize)
 
@@ -44,7 +44,7 @@ qes(example.model, iv.var = "x3", xlab = "Using qes", ylab = "Productivity")
 
 ## Example 2: 
 
-```{r, message=FALSE, echo=TRUE, results='hide',fig.keep='all'}
+```{r, message=FALSE, warning=FALSE, echo=TRUE, results='hide',fig.keep='all'}
 
 dat$y2 <- dat$y > 0.98
 example.model <- zelig(y2 ~ x1 + x2 + x3, data = dat, model = "probit") 
