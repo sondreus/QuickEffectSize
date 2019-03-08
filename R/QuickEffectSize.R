@@ -2,14 +2,14 @@
 #'
 #' This package visualizes effect sizes. It relies on the Zelig package.
 #' @param zelig.model Fitted zelig model
-#' @param iv.var Independent variable. 
-#' @param sim.n Number of simulations for each value of iv.var simulated. Defaults to 100. 
-#' @param range.n Number of different values of iv.var to simulate. Defaults to 100. 
+#' @param iv.var Independent variable.
+#' @param sim.n Number of simulations for each value of iv.var simulated. Defaults to 100.
+#' @param range.n Number of different values of iv.var to simulate. Defaults to 100.
 #' @param custom.range Vector of two values specifying a range within which different values of iv.var should be simulated. (Optional)
 #' @param return.pdata Should the data to construct the plot be returned instead of the plot itself? Defaults to FALSE.
-#' @param progress Should progress be reported? (defaults to TRUE)  
+#' @param progress Should progress be reported? (defaults to TRUE)
 #' @param coord.ylim Sets limits on what part of the x.axis to display through ggplots coord_cartesian() function. (Optional)
-#' @param set.covar Option to specify values of other predictors in simulations. (Optional) 
+#' @param set.covar Option to specify values of other predictors in simulations. (Optional)
 #' @keywords qes QuickEffectSize effect Zelig plot
 #' @aliases qes
 #' @export qes QuickEffectSize
@@ -24,7 +24,7 @@ QuickEffectSize <- qes <- function(zelig.model, iv.var, sim.n = 100, range.n = 1
 
   library(Zelig)
   library(ggplot2)
-  
+
 # Fitting model - you would naturally use your model and data here
 model <- zelig.model
 
@@ -69,26 +69,26 @@ colnames(pdata) <- range
 
 index <- 0
 for(i in 1:length(range)){
-  
-  
-  # Set level of IV  
+
+
+  # Set level of IV
   setx.with.custom.iv <- paste0("setx(model, ", iv.var, " = ", range[i], set.covar, ")")
   model.fit <- eval(parse(text = setx.with.custom.iv))
-  
+
   # set.seed(112358)
   # model.fit <- setx(model, size_from_year = range[i])
 
   # Simulate quantities of interest
   sim   <- sim(model, x = model.fit, num = sim.n)
-  
+
   # Get and save expected values
   pdata[, i] <- unlist(sim$get_qi(qi = "ev", xvalue = "x"))
-  
+
   index <- index + 1
   if(progress){
   cat(paste("\r", ifelse(index == length(range), paste(100, "%  -  complete !"), paste(sprintf("%.2f", round(index/length(range), 4)*100), "%")), " -  Package: QuickEffectSize  -  IV:", iv.var))
   }
-  
+
 }
 
 cat("\n")

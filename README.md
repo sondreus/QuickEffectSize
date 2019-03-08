@@ -22,14 +22,21 @@ Example 1:
 ----------
 
 ``` r
-library(QuickEffectSize)
 library(Zelig)
+```
+
+    ## Warning: package 'Zelig' was built under R version 3.4.4
+
+    ## Warning: package 'survival' was built under R version 3.4.4
+
+``` r
+library(QuickEffectSize)
 
 dat <- data.frame(y = rnorm(100), x1 = rnorm(100), x2 = rnorm(100))
 dat$x3 <- dat$y + rnorm(100)
-example.model <- zelig(y ~ x1 + x2 + x3, data = dat, model = "normal", cite = FALSE) 
+example.model <- zelig(y ~ x1 + x2 + x3, data = dat, model = "normal") 
 
-qes(example.model, iv.var = "x3", xlab = "Using qes", ylab = "Productivity", progress = FALSE)
+qes(example.model, iv.var = "x3", xlab = "Using qes", ylab = "Productivity")
 ```
 
 ![](README_files/figure-markdown_github/unnamed-chunk-2-1.png)
@@ -39,9 +46,9 @@ Example 2:
 
 ``` r
 dat$y2 <- dat$y > 0.98
-example.model <- zelig(y2 ~ x1 + x2 + x3, data = dat, model = "probit", cite = FALSE) 
+example.model <- zelig(y2 ~ x1 + x2 + x3, data = dat, model = "probit") 
 
-qes(example.model, iv.var = "x3", xlab = "Using qes", ylab = "Productivity", progress = FALSE)
+qes(example.model, iv.var = "x3")
 ```
 
 ![](README_files/figure-markdown_github/unnamed-chunk-3-1.png)
@@ -51,6 +58,8 @@ Arguments:
 
 -   **zelig.model** - Fitted zelig model
 -   **iv.var** - Independent variable.
+-   **xlab** - (Optional) Label on x-axis. Defaults to independent variable name.
+-   **ylab** - (Optional) Label on y-axis. Defaults to dependent variable name.
 -   **sim.n** - (Optional) Number of simulations for each value of iv.var simulated. Defaults to 100.
 -   **range.n** - (Optional) Number of different values of iv.var to simulate. Defaults to 100.
 -   **custom.range** - (Optional) Vector of two values specifying a range within which different values of iv.var should be simulated.
