@@ -38,7 +38,7 @@ Example 2:
 ----------
 
 ``` r
-dat$y2 <- dat$y > 0.5
+dat$y2 <- dat$y > 0.98
 example.model <- zelig(y2 ~ x1 + x2 + x3, data = dat, model = "probit", cite = FALSE) 
 
 qes(example.model, iv.var = "x3", xlab = "Using qes", ylab = "Productivity", progress = FALSE)
@@ -50,12 +50,13 @@ Arguments:
 ----------
 
 -   **zelig.model** - Fitted zelig model
--   **iv.var** - Independent variable. sim.n Number of simulations for each value of iv.var simulated. Defaults to 100.
+-   **iv.var** - Independent variable.
+-   **sim.n** - (Optional) Number of simulations for each value of iv.var simulated. Defaults to 100.
 -   **range.n** - (Optional) Number of different values of iv.var to simulate. Defaults to 100.
 -   **custom.range** - (Optional) Vector of two values specifying a range within which different values of iv.var should be simulated.
--   **return.pdata** - Should the data to construct the plot be returned instead of the plot itself? Defaults to FALSE.
+-   **return.pdata** - (Optional) Should the data to construct the plot be returned instead of the plot itself? Defaults to FALSE.
 -   **progress** - (Optional) Should progress be reported? Defaults to TRUE.
--   **coord.ylim** - Sets limits on what part of the x.axis to display through ggplots coord\_cartesian() function.
+-   **coord.ylim** - (Optional) Sets limits on what part of the x.axis to display through ggplots coord\_cartesian() function.
 -   **set.covar** - (Optional) Option to specify values of other predictors in simulations.
 
 References:
