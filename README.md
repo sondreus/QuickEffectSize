@@ -61,6 +61,11 @@ Arguments:
 -   **coord.ylim** - (Optional) Sets limits on what part of the x.axis to display through ggplots coord\_cartesian() function.
 -   **set.covar** - (Optional) Option to specify values of other predictors in simulations.
 
+Citation:
+---------
+
+Solstad, Sondre Ulvund (2019). *QuickEffectSize: Quick Effect Size Plots in R*. <https://github.com/sondreus/QuickEffectSize#quickeffectsize>
+
 References:
 -----------
 

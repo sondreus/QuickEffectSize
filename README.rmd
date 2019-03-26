@@ -67,6 +67,9 @@ qes(example.model, iv.var = "x3")
 * **coord.ylim** - (Optional) Sets limits on what part of the x.axis to display through ggplots coord_cartesian() function.
 * **set.covar** - (Optional) Option to specify values of other predictors in simulations.
 
+## Citation:
+Solstad, Sondre Ulvund (2019). *QuickEffectSize: Quick Effect Size Plots in R*. https://github.com/sondreus/QuickEffectSize#quickeffectsize
+
 ## References:
 
 Zelig: R Core Team. 2008. normal: Normal Regression for Continuous Dependent Variables in Christine Choirat, Christopher Gandrud, James Honaker, Kosuke Imai, Gary King, and Olivia Lau, "Zelig: Everyone's Statistical Software," http://zeligproject.org/
