@@ -10,6 +10,7 @@
 #' @param progress Should progress be reported? (defaults to TRUE)
 #' @param coord.ylim Sets limits on what part of the x.axis to display through ggplots coord_cartesian() function. (Optional)
 #' @param set.covar Option to specify values of other predictors in simulations. (Optional)
+#' @param ... Passed to ggplot2's *theme()* function. (Optimal)
 #' @keywords qes QuickEffectSize effect Zelig plot
 #' @aliases qes
 #' @export qes QuickEffectSize
@@ -19,9 +20,9 @@
 #' library(Zelig)
 #' qes(zelig(y ~ x1 + x2 + x3, data = dat, model = "normal"), iv.var = "x3", xlab = "Using qes", ylab = "Productivity")
 
+QuickEffectSize <- qes <- function(zelig.model, iv.var, sim.n = 100, range.n = 100, custom.range, return.pdata = FALSE, progress = TRUE, xlab = iv.var, ylab = dv.var, coord.ylim, set.covar = NULL, ...){
 
-QuickEffectSize <- qes <- function(zelig.model, iv.var, sim.n = 100, range.n = 100, custom.range, return.pdata = FALSE, progress = TRUE, xlab = "IV", ylab = "DV", coord.ylim, set.covar = NULL, ...){
-
+# Load packages on which this function depends
   library(Zelig)
   library(ggplot2)
 
@@ -35,81 +36,69 @@ if(missing(iv.var)){
 
 dv.var <- model$formula[[2]]
 
-if(missing(xlab)){
-  xlab <- iv.var
-}
-
-if(missing(ylab)){
-  ylab <- dv.var
-}
-
-# If specifying covariance structure further, then add ", " else leave this as empty string
+## If specifying covariance structure further, then add ", " else leave this as empty string
 if(!is.null(set.covar)){
   set.covar <- paste0(", ", set.covar)
 } else {
   set.covar <- ""
 }
 
-
-# Set number of simulations
-e <- data.frame(model$data)
-
-# Get range of iv to plot for
-range <- as.numeric(sort(e[, iv.var]))
-
-# Setting range to smaller number of unique values (if not, the script uses all unique values)
-range <- seq(mean(range)-sd(range), mean(range)+sd(range), length.out = range.n)
-
+## Get range of iv to plot for
+# Check for custom range, if specified, generate range.n unique values within range
 if(!missing(custom.range)){
-  range <- seq(custom.range[1], custom.range[2], length.out = range.n)
+  iv_range <- seq(custom.range[1], custom.range[2], length.out = range.n)
+} else {
+# ... else use default, equal to range.n values from one standard deviation above to one standard deviation below the mean of the iv
+  iv_range <- as.numeric(sort(data.frame(model$data)[, iv.var]))
+  iv_range <- seq(mean(iv_range)-sd(iv_range), mean(iv_range)+sd(iv_range), length.out = range.n)
 }
 
-pdata <- data.frame(matrix(ncol = length(range), nrow = sim.n))
-colnames(pdata) <- range
+## Generate container data frame
+iv_range <<- iv_range
+sim.n <<- sim.n
+range.n <<- range.n
+iv.var <<- iv.var
+set.covar <<- set.covar
+model <<- model
 
+pdata <- data.frame(my.iv = sort(rep(iv_range, sim.n)), ev = rep(NA, sim.n*range.n), name = rep(iv.var, length(sim.n*range.n)))
+
+## Generate simulated quantitites of interest in loop with range.n steps
 index <- 0
-for(i in 1:length(range)){
+for(i in 1:length(iv_range)){
 
-
-  # Set level of IV
-  setx.with.custom.iv <- paste0("setx(model, ", iv.var, " = ", range[i], set.covar, ")")
+  # 1. Set level of IV
+  setx.with.custom.iv <- paste0("setx(model, ", iv.var, " = ", iv_range[i], set.covar, ")")
   model.fit <- eval(parse(text = setx.with.custom.iv))
 
-  # set.seed(112358)
-  # model.fit <- setx(model, size_from_year = range[i])
-
-  # Simulate quantities of interest
+  # 2. Simulate quantity of interest for this level of IV
   sim   <- sim(model, x = model.fit, num = sim.n)
 
-  # Get and save expected values
-  pdata[, i] <- unlist(sim$get_qi(qi = "ev", xvalue = "x"))
+  # 3. Save result
+  pdata[(1+(i-1)*sim.n):(i*sim.n), "ev"] <- unlist(sim$get_qi(qi = "ev", xvalue = "x"))
 
-  index <- index + 1
+
+
+  # (If desired, report progress:)
   if(progress){
-  cat(paste("\r", ifelse(index == length(range), paste(100, "%  -  complete !"), paste(sprintf("%.2f", round(index/length(range), 4)*100), "%")), " -  Package: QuickEffectSize  -  IV:", iv.var))
+  index <- index + 1
+  cat(paste("\r", ifelse(index == length(iv_range), paste(100, "%  -  complete !"), paste(sprintf("%.2f", round(index/length(iv_range), 4)*100), "%")), " -  Package: QuickEffectSize  -  IV:", iv.var))
   }
 
 }
-
 cat("\n")
 
-values <- c(unlist(pdata[, 1:length(range)]))
+# Generate plot using ggplot2
+p <- ggplot(pdata, aes(x=my.iv, y=ev))+geom_point(alpha = max(1/sim.n, 0.05), col = "skyblue")+theme_classic()+stat_smooth(col = "skyblue")+xlab(xlab)+ylab(ylab)+theme(...)
 
-pdata <- data.frame(my.iv = sort(rep(range, sim.n)), ev = values, name = rep(iv.var, length(values)))
-rownames(pdata) <- 1:nrow(pdata)
-
-if(max(pdata$my.iv, na.rm = TRUE) > 1){
-  pdata$my.iv <- pdata$my.iv / 20
-}
-
-p <- ggplot(pdata, aes(x=my.iv, y=ev))+geom_point(alpha = max(1/sim.n, 0.05), col = "skyblue")+theme_classic()+stat_smooth(col = "skyblue")+xlab(xlab)+ylab(ylab)
-
+# If custom coordinates to plot is set, restrict plot to these
 if(!missing(coord.ylim)){
   p <- p+coord_cartesian(ylim = coord.ylim)
 }
 
-colnames(pdata)[1:2] <- c(iv.var, dv.var)
+# Return either simulated data or plot of simulated data
 if(return.pdata == TRUE){
+  colnames(pdata)[1:2] <- c(iv.var, dv.var)
   return(pdata)
 } else {
 return(p)

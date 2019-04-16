@@ -6,8 +6,8 @@
 \title{QuickEffectSize (qes)}
 \usage{
 QuickEffectSize(zelig.model, iv.var, sim.n = 100, range.n = 100,
-  custom.range, return.pdata = FALSE, progress = TRUE, xlab = "IV",
-  ylab = "DV", coord.ylim, set.covar = NULL, ...)
+  custom.range, return.pdata = FALSE, progress = TRUE, xlab = iv.var,
+  ylab = dv.var, coord.ylim, set.covar = NULL, ...)
 }
 \arguments{
 \item{zelig.model}{Fitted zelig model}
@@ -27,6 +27,8 @@ QuickEffectSize(zelig.model, iv.var, sim.n = 100, range.n = 100,
 \item{coord.ylim}{Sets limits on what part of the x.axis to display through ggplots coord_cartesian() function. (Optional)}
 
 \item{set.covar}{Option to specify values of other predictors in simulations. (Optional)}
+
+\item{...}{Passed to ggplot2's *theme()* function. (Optimal)}
 }
 \description{
 This package visualizes effect sizes. It relies on the Zelig package.
