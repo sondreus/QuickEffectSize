@@ -54,13 +54,6 @@ if(!missing(custom.range)){
 }
 
 ## Generate container data frame
-iv_range <<- iv_range
-sim.n <<- sim.n
-range.n <<- range.n
-iv.var <<- iv.var
-set.covar <<- set.covar
-model <<- model
-
 pdata <- data.frame(my.iv = sort(rep(iv_range, sim.n)), ev = rep(NA, sim.n*range.n), name = rep(iv.var, length(sim.n*range.n)))
 
 ## Generate simulated quantitites of interest in loop with range.n steps

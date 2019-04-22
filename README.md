@@ -60,6 +60,7 @@ Arguments:
 -   **progress** - (Optional) Should progress be reported? Defaults to TRUE.
 -   **coord.ylim** - (Optional) Sets limits on what part of the x.axis to display through ggplots coord\_cartesian() function.
 -   **set.covar** - (Optional) Option to specify values of other predictors in simulations.
+-   **...** - (Optional) Additional arguments passed to ggplot2's *theme()* function.
 
 Citation:
 ---------
