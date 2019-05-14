@@ -7,7 +7,8 @@
 \usage{
 QuickEffectSize(zelig.model, iv.var, sim.n = 100, range.n = 100,
   custom.range, return.pdata = FALSE, progress = TRUE, xlab = iv.var,
-  ylab = dv.var, coord.ylim, set.covar = NULL, ...)
+  ylab = dv.var, coord.ylim, set.covar = NULL, transform.x,
+  transform.y, ...)
 }
 \arguments{
 \item{zelig.model}{Fitted zelig model}
@@ -27,6 +28,10 @@ QuickEffectSize(zelig.model, iv.var, sim.n = 100, range.n = 100,
 \item{coord.ylim}{Sets limits on what part of the x.axis to display through ggplots coord_cartesian() function. (Optional)}
 
 \item{set.covar}{Option to specify values of other predictors in simulations. (Optional)}
+
+\item{transform.x}{If provided a function, transforms x-values according to function before plotting. (Optional)}
+
+\item{transform.y}{If provided a function, transforms y-values according to function before plotting. (Optional)}
 
 \item{...}{Passed to ggplot2's *theme()* function. (Optimal)}
 }

@@ -10,6 +10,8 @@
 #' @param progress Should progress be reported? (defaults to TRUE)
 #' @param coord.ylim Sets limits on what part of the x.axis to display through ggplots coord_cartesian() function. (Optional)
 #' @param set.covar Option to specify values of other predictors in simulations. (Optional)
+#' @param transform.x If provided a function, transforms x-values according to function before plotting. (Optional)
+#' @param transform.y If provided a function, transforms y-values according to function before plotting. (Optional)
 #' @param ... Passed to ggplot2's *theme()* function. (Optimal)
 #' @keywords qes QuickEffectSize effect Zelig plot
 #' @aliases qes
@@ -20,7 +22,7 @@
 #' library(Zelig)
 #' qes(zelig(y ~ x1 + x2 + x3, data = dat, model = "normal"), iv.var = "x3", xlab = "Using qes", ylab = "Productivity")
 
-QuickEffectSize <- qes <- function(zelig.model, iv.var, sim.n = 100, range.n = 100, custom.range, return.pdata = FALSE, progress = TRUE, xlab = iv.var, ylab = dv.var, coord.ylim, set.covar = NULL, ...){
+QuickEffectSize <- qes <- function(zelig.model, iv.var, sim.n = 100, range.n = 100, custom.range, return.pdata = FALSE, progress = TRUE, xlab = iv.var, ylab = dv.var, coord.ylim, set.covar = NULL, transform.x, transform.y, ...){
 
 # Load packages on which this function depends
   library(Zelig)
@@ -80,6 +82,14 @@ for(i in 1:length(iv_range)){
 
 }
 cat("\n")
+
+if(!missing(transform.x)){
+  pdata$my.iv <- transform.x(pdata$my.iv)
+}
+if(!missing(transform.y)){
+  pdata$ev <- transform.y(pdata$ev)
+}
+
 
 # Generate plot using ggplot2
 p <- ggplot(pdata, aes(x=my.iv, y=ev))+geom_point(alpha = max(1/sim.n, 0.05), col = "skyblue")+theme_classic()+stat_smooth(col = "skyblue")+xlab(xlab)+ylab(ylab)+theme(...)
