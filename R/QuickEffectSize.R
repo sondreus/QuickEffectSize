@@ -28,7 +28,7 @@ QuickEffectSize <- qes <- function(zelig.model, iv.var, sim.n = 100, range.n = 1
   library(Zelig)
   library(ggplot2)
 
-# Fitting model - you would naturally use your model and data here
+# (Legacy, could be more efficient)
 model <- zelig.model
 
 # If iv.var not specified, use first listed
@@ -51,7 +51,7 @@ if(!missing(custom.range)){
   iv_range <- seq(custom.range[1], custom.range[2], length.out = range.n)
 } else {
 # ... else use default, equal to range.n values from one standard deviation above to one standard deviation below the mean of the iv
-  iv_range <- as.numeric(sort(data.frame(model$data)[, iv.var]))
+  iv_range <- as.numeric(sort(data.frame(model.matrix(zelig.model$formula, data = zelig.model$data))[, iv.var]))
   iv_range <- seq(mean(iv_range)-sd(iv_range), mean(iv_range)+sd(iv_range), length.out = range.n)
 }
 
@@ -107,3 +107,4 @@ if(return.pdata == TRUE){
 return(p)
 }
 }
+
