@@ -9,7 +9,7 @@ QuickEffectSize is an easy interface for effect size plots in R. Using the Zelig
 
 By default the plot shows 100 simulations for 100 values of the selected independent variable. These values are set to range from one standard deviation above to one standard deviation below the mean.
 
-Written by Sondre U. Solstad, Princeton University (<ssolstad@princeton.edu>). Send me an email if you find this package useful or want to suggest an improvement or feature.
+Written by Sondre U. Solstad, Princeton University (formerly <ssolstad@princeton.edu> now <sondreus@gmail.com>). Send me an email if you find this package useful or want to suggest an improvement or feature.
 
 Installation instructions:
 
